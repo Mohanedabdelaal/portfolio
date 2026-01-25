@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<!--
+  موقع بورتفوليو شخصي لمهند عبدالعال
+  ملاحظات مهمة للتعديل:
+  - أي تعليق بالعربي يشرح لك وظيفة الكود اللي تحته مباشرة.
+  - غيّر النصوص والروابط اللي تحتاجها فقط، واترك بقية التركيب كما هو.
+-->
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <!-- إعدادات أساسية للصفحة -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- عنوان الصفحة الذي يظهر في التبويب (غيّره لو حبيت) -->
+  <title>بورتفوليو | مهند عبدالعال</title>
+
+  <!-- وصف مختصر للموقع لمحركات البحث (SEO) - عدّل الكلمات لتناسبك -->
+  <meta name="description" content="بورتفوليو احترافي لمهند عبدالعال - جرافيك ديزاينر متخصص في تصميم بوستات السوشيال ميديا والإعلانات، مع خبرة أكثر من 3 سنوات وأكثر من 20 مشروع." />
+
+  <!-- استيراد خط Cairo من جوجل فونتس -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- إعدادات Tailwind CSS (هنا نحدد الثيم والألوان المستخدمة) -->
+  <script>
+    tailwind = {
+      config: {
+        darkMode: "class", // تفعيل نظام الثيم عن طريق كلاس .dark على عنصر <html>
+        theme: {
+          extend: {
+            fontFamily: {
+              // الخط الافتراضي للموقع
+              sans: ["Cairo", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+            },
+            colors: {
+              // ألوان أساسية مخصصة (تقدر تستخدمها في الكلاسات لو حبيت تطور التصميم لاحقًا)
+              brand: {
+                50: "#ecfeff",
+                100: "#cffafe",
+                200: "#a5f3fc",
+                300: "#67e8f9",
+                400: "#22d3ee",
+                500: "#06b6d4",
+                600: "#0891b2",
+                700: "#0e7490",
+                800: "#155e75",
+                900: "#164e63",
+                950: "#082f49",
+              },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- استيراد Tailwind CSS عبر CDN (ضروري لعمل التصميم) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!--
+    ستايل إضافي مخصص (فوق Tailwind)
+    هنا نحدد:
+    - الخط الافتراضي
+    - سلوك التمرير
+    - ألوان الثيم الداكن والفاتح
+  -->
+  <style>
+    /* تعيين خط Cairo لكل جسم الصفحة */
+    body {
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* لون تمييز النص عند التحديد بالفأرة */
+    ::selection {
+      background-color: #06b6d4;
+      color: #0f172a;
+    }
+
+    /* تفعيل سلاسة في التمرير بين الأقسام عند الضغط على الروابط */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* نظام الثيم (داكن كافتراضي، وفاتح عند إزالة كلاس .dark من <html>) */
+    html.dark {
+      color-scheme: dark;
+    }
+
+    html:not(.dark) {
+      color-scheme: light;
+    }
+
+    /* خلفية ونص الجسم في الوضع الداكن */
+    html.dark body {
+      background-color: #020617; /* slate-950 */
+      color: #e5e7eb; /* slate-200 */
+    }
+
+    /* خلفية ونص الجسم في الوضع الفاتح */
+    html:not(.dark) body {
+      background-color: #f9fafb; /* slate-50 */
+      color: #020617; /* slate-950 */
+    }
+
+    /* ألوان الهيدر والفوتر في الوضع الفاتح (سطح شبه شفاف فاتح) */
+    html:not(.dark) header,
+    html:not(.dark) footer {
+      background-color: rgba(255, 255, 255, 0.92) !important;
+      border-color: #e5e7eb !important; /* slate-200 */
+    }
+
+    /* خلفيات الأقسام الرئيسية في الوضع الفاتح */
+    html:not(.dark) #about,
+    html:not(.dark) #skills,
+    html:not(.dark) #projects,
+    html:not(.dark) #contact {
+      background-color: #f9fafb; /* slate-50 */
+      border-color: #e5e7eb;
+    }
+
+    /* تعديل خلفية قسم الهيرو في الوضع الفاتح (إضاءة بسيطة من الأعلى) */
+    html:not(.dark) #hero .absolute {
+      background-image: radial-gradient(circle at top, #0ea5e922, transparent 60%),
+        radial-gradient(circle at bottom, #e5e7eb, #f9fafb) !important;
+    }
+
+    /* تحويل الخلفيات الداكنة إلى فاتحة عند تفعيل اللايت مود */
+    html:not(.dark) .bg-slate-950,
+    html:not(.dark) .bg-slate-950\/80,
+    html:not(.dark) .bg-slate-950\/90,
+    html:not(.dark) .bg-slate-950\/95 {
+      background-color: #ffffff !important;
+    }
+
+    html:not(.dark) .bg-slate-900,
+    html:not(.dark) .bg-slate-900\/60,
+    html:not(.dark) .bg-slate-900\/70,
+    html:not(.dark) .bg-slate-900\/80,
+    html:not(.dark) .bg-slate-900\/90 {
+      background-color: #f9fafb !important;
+    }
+
+    /* تعديل ألوان الحدود في اللايت مود */
+    html:not(.dark) .border-slate-900,
+    html:not(.dark) .border-slate-800,
+    html:not(.dark) .border-slate-700 {
+      border-color: #e5e7eb !important; /* رمادي فاتح */
+    }
+
+    /* تعديل ألوان النصوص الداكنة/الفاتحة عند الانتقال للوضع الفاتح */
+    html:not(.dark) .text-slate-50,
+    html:not(.dark) .text-slate-100 {
+      color: #0f172a !important; /* slate-900 */
+    }
+
+    html:not(.dark) .text-slate-200,
+    html:not(.dark) .text-slate-300 {
+      color: #111827 !important; /* قريب من slate-900 */
+    }
+
+    html:not(.dark) .text-slate-400,
+    html:not(.dark) .text-slate-500 {
+      color: #374151 !important; /* slate-700 */
+    }
+
+    /* زر "العودة للأعلى" في اللايت مود */
+    html:not(.dark) #scrollTopBtn {
+      background-color: #ffffffcc !important;
+      border-color: #e5e7eb !important;
+      color: #111827 !important;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1) !important;
+    }
+
+    /*
+      ضبط أبعاد صور معاينة المشاريع داخل كروت الأعمال
+      - العرض: 100% من مساحة الحاوية (علشان ما تخرجش بره الكرت)
+      - الارتفاع: 100% من ارتفاع الحاوية (اللي متحدد بـ h-44 / h-48 من Tailwind)
+      - object-fit: contain لعرض الصورة كاملة بدون قص أو تشويه
+
+      ملاحظة:
+      - لو حابب الصورة تملأ المساحة بالكامل حتى لو قصّت من الأطراف، غيّر contain إلى cover.
+      - لو حسيت الصورة صغيرة وفي فراغ حوالينها، ده طبيعي مع contain لأنه بيحافظ على أبعاد الصورة الأصلية.
+    */
+    #projects [data-project-thumb] {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+
+<!--
+  جسم الصفحة الرئيسي
+  مكون من:
+  - هيدر (شعار + قائمة تنقل + زر تغيير الثيم)
+  - أقسام المحتوى (هيرو، نبذة، مهارات، مشاريع، تواصل)
+  - فوتر في الأسفل
+-->
+<body class="bg-slate-950 text-slate-50 min-h-screen">
+  <div class="min-h-screen flex flex-col">
+    <!-- ===================== -->
+    <!-- الهيدر (الشعار + القائمة) -->
+    <!-- ===================== -->
+    <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
+      <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20">
+          <!--
+            الشعار (اللوجو النصي)
+            - غيّر الحرف داخل الدائرة لو حبيت (حاليًا م = مهند)
+            - غيّر الاسم تحت اللوجو لو حبيت تعدّل الصياغة
+          -->
+          <a href="#hero" class="flex items-center gap-3 group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-brand-500 via-cyan-400 to-sky-500 flex items-center justify-center text-slate-950 font-extrabold text-lg shadow-lg shadow-cyan-500/40">
+              <span>م</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-sm sm:text-base font-semibold tracking-tight group-hover:text-cyan-300 transition-colors">مهند عبدالعال</span>
+              <span class="text-[11px] sm:text-xs text-slate-400">جرافيك ديزاينر</span>
+            </div>
+          </a>
+
+          <!-- قائمة التنقل لسطح المكتب (تتحركك بين أقسام الصفحة) -->
+          <div class="hidden md:flex items-center gap-8 text-sm">
+            <a href="#about" data-nav-link class="text-slate-300 hover:text-cyan-300 transition-colors">نبذة عني</a>
+            <a href="#skills" data-nav-link class="text-slate-300 hover:text-cyan-300 transition-colors">المهارات</a>
+            <a href="#projects" data-nav-link class="text-slate-300 hover:text-cyan-300 transition-colors">الأعمال</a>
+            <a href="#contact" data-nav-link class="text-slate-300 hover:text-cyan-300 transition-colors">تواصل</a>
+          </div>
+
+          <!-- أزرار بالهيدر: زر الثيم + زر قائمة الجوال -->
+          <div class="flex items-center gap-3">
+            <!--
+              زر تبديل الثيم (داكن / فاتح)
+              - لا تغيّر الـ id هنا، فقط لو حبيت غيّر شكل الزر أو الألوان
+            -->
+            <button
+              id="themeToggle"
+              type="button"
+              class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-700 bg-slate-900/60 text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:bg-slate-900/90 transition-colors"
+              aria-label="تبديل نسق الألوان"
+            >
+              <span id="themeIcon" class="w-5 h-5 inline-block"></span>
+            </button>
+
+            <!-- زر فتح/إغلاق قائمة الجوال -->
+            <button
+              id="mobileMenuBtn"
+              type="button"
+              class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-700 bg-slate-900/60 text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:bg-slate-900/90 transition-colors"
+              aria-label="القائمة"
+            >
+              <span class="sr-only">فتح القائمة</span>
+              <svg
+                id="mobileMenuIcon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                class="w-5 h-5"
+              >
+                <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!--
+          قائمة التنقل الخاصة بالجوال
+          - تفتح وتغلق عند الضغط على زر القائمة
+        -->
+        <div id="mobileMenu" class="md:hidden hidden border-t border-slate-800 bg-slate-950/95">
+          <div class="py-3 flex flex-col gap-1 text-sm">
+            <a href="#about" data-nav-link class="block px-2 py-2 rounded-lg text-slate-200 hover:bg-slate-900/80 hover:text-cyan-300 transition-colors">نبذة عني</a>
+            <a href="#skills" data-nav-link class="block px-2 py-2 rounded-lg text-slate-200 hover:bg-slate-900/80 hover:text-cyan-300 transition-colors">المهارات</a>
+            <a href="#projects" data-nav-link class="block px-2 py-2 rounded-lg text-slate-200 hover:bg-slate-900/80 hover:text-cyan-300 transition-colors">الأعمال</a>
+            <a href="#contact" data-nav-link class="block px-2 py-2 rounded-lg text-slate-200 hover:bg-slate-900/80 hover:text-cyan-300 transition-colors">تواصل</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ===================== -->
+    <!-- محتوى الصفحة الرئيسي -->
+    <!-- ===================== -->
+    <main class="flex-1">
+      <!-- ===================== -->
+      <!-- قسم الهيرو (الترحيب + تعريف سريع) -->
+      <!-- ===================== -->
+      <section id="hero" class="relative overflow-hidden">
+        <!-- خلفية مشعّة بسيطة خلف الهيرو -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_#22d3ee22,_transparent_60%),radial-gradient(circle_at_bottom,_#0f172a,_#020617)]"></div>
+
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
+          <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <!-- العمود الأيمن: النصوص الرئيسية -->
+            <div class="space-y-8">
+              <!-- شارة صغيرة توضح أنك متاح للعمل الحر -->
+              <div class="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/70 px-3 py-1 text-xs text-slate-300">
+                <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>متاح حاليًا للعمل الحر</span>
+              </div>
+
+              <div class="space-y-4">
+                <p class="text-sm text-slate-300">مرحبًا، أنا</p>
+
+                <!--
+                  الاسم واللقب الرئيسي
+                  - غيّر الاسم أو اللقب من هنا لو حبيت
+                -->
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
+                  <span class="block text-slate-50">مهند عبدالعال</span>
+                  <span class="mt-1 block bg-gradient-to-l from-cyan-400 via-sky-400 to-emerald-300 bg-clip-text text-transparent">جرافيك ديزاينر</span>
+                </h1>
+
+                <!--
+                  نبذة مختصرة تظهر في الهيرو
+                  - عدّل النص حسب ما تحب تصف نفسك باختصار
+                -->
+                <p class="text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">
+                  مهند عبدالعال جرافيك ديزاينر لدي خبرة في تصميم بوستات السوشيال ميديا والإعلانات لأكثر من 3 سنوات وقدمت العديد من التصاميم الاحترافية لمجالات مختلفة.
+                </p>
+              </div>
+
+              <!-- أزرار الدعوة لاتخاذ إجراء (CTA) -->
+              <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                <!-- زر الانتقال لقسم التواصل -->
+                <a
+                  href="#contact"
+                  class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-l from-brand-500 to-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/40 hover:from-brand-400 hover:to-cyan-300 transition-colors"
+                >
+                تواصل معي لتحويل فكرتك لواقع
+                </a>
+
+                <!--
+                  زر تحميل السيرة الذاتية
+                  - غيّر href="#" إلى رابط ملف الـ CV الحقيقي (مثلاً Google Drive)
+                -->
+                <a
+                  href="#"
+                  class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-medium border border-slate-700 text-slate-100 hover:border-cyan-400 hover:text-cyan-200 bg-slate-900/60 hover:bg-slate-900/90 transition-colors"
+                >
+                  تحميل السيرة الذاتية (CV)
+                </a>
+              </div>
+
+              <!-- أرقام بسيطة عن الخبرة والمهارات الرئيسية -->
+              <div class="flex flex-wrap items-center gap-6 text-xs sm:text-sm text-slate-300">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg font-bold text-cyan-400">+3</span>
+                  <span class="leading-tight">سنوات خبرة<br />في مجال التصميم</span>
+                </div>
+                <div class="h-10 w-px bg-slate-800 hidden sm:block"></div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs">تصميم بوستات سوشيال ميديا</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs">إعلانات ممولة</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs">فوتوشوب</span>
+                  <span class="px-2.5 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs">إليستريتور</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- العمود الثاني: كارت معلومات عنك (تصميم جانبي) -->
+            <div class="relative">
+              <!-- هالة خلفية ملونة خلف الكارت -->
+              <div class="absolute -inset-6 rounded-[2.25rem] bg-gradient-to-bl from-brand-500/25 via-slate-900 to-slate-950 blur-2xl opacity-80"></div>
+
+              <!-- كارت المعلومات نفسه -->
+              <div class="relative rounded-[2rem] border border-slate-800/80 bg-slate-950/80 p-6 sm:p-7 lg:p-8 shadow-[0_0_80px_-20px_rgba(34,211,238,0.4)]">
+                <div class="flex flex-col gap-6">
+                  <!-- رأس الكارت: الصورة الرمزية + الاسم + الحالة -->
+                  <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                      <!-- دائرة فيها الحرف الأول من اسمك (تقدر تستبدلها بصورة شخصية لو حبيت) -->
+                      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-500 via-cyan-400 to-sky-500 flex items-center justify-center text-slate-950 font-extrabold text-2xl">
+                        <span>م</span>
+                      </div>
+                      <div class="space-y-1">
+                        <p class="text-sm font-semibold text-slate-50">مهند عبدالعال</p>
+                        <p class="text-xs text-slate-400">جرافيك ديزاينر · فريلانس</p>
+                      </div>
+                    </div>
+                    <div class="flex flex-col items-end text-xs text-slate-400 gap-1">
+                      <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/40">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>متاح للعمل</span>
+                      </span>
+                      <span>أسيوط، مصر</span>
+                    </div>
+                  </div>
+
+                  <!-- كروت أرقام سريعة عن المشاريع والخبرة -->
+                  <div class="grid grid-cols-3 gap-3 text-xs">
+                    <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-3 space-y-1">
+                      <p class="text-[11px] text-slate-400">المشاريع المكتملة</p>
+                      <p class="text-lg font-semibold text-slate-50">+20</p>
+                      <p class="text-[11px] text-emerald-300">تصاميم متنوعة</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-3 space-y-1">
+                      <p class="text-[11px] text-slate-400">سنوات الخبرة</p>
+                      <p class="text-lg font-semibold text-slate-50">+3</p>
+                      <p class="text-[11px] text-cyan-300">جرافيك ديزاين</p>
+                    </div>
+                    <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-3 space-y-1">
+                      <p class="text-[11px] text-slate-400">مجالات العمل</p>
+                      <p class="text-[13px] font-semibold text-slate-50">فريلانس · سوشيال ميديا</p>
+                      <p class="text-[11px] text-sky-300">وتطوير مواقع</p>
+                    </div>
+                  </div>
+
+                  <!-- نص تشويقي + زر استعراض الأعمال -->
+                  <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-3 flex items-center justify-between gap-3 text-xs">
+                    <div class="space-y-1">
+                      <p class="text-slate-300">جاهز لتصميم حملتك القادمة</p>
+                      <p class="text-slate-400">بوستات سوشيال ميديا، إعلانات ممولة، بنرات، وهويات بصرية خفيفة.</p>
+                    </div>
+                    <a
+                      href="#projects"
+                      class="inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-gradient-to-l from-brand-500 to-cyan-400 text-[11px] font-semibold text-slate-950 whitespace-nowrap hover:from-brand-400 hover:to-cyan-300 transition-colors"
+                    >
+                      استعرض الأعمال
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- سهم بسيط يوضح للمستخدم أن هناك محتوى بالأسفل -->
+          <div class="mt-10 flex justify-center">
+            <a href="#about" class="flex flex-col items-center gap-2 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors">
+              <span>مرِّر لأسفل للتعرّف أكثر</span>
+              <span class="w-6 h-9 rounded-full border border-slate-700 flex items-start justify-center p-1">
+                <span class="w-1 h-2 rounded-full bg-slate-400 animate-bounce"></span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- قسم "نبذة عني" -->
+      <!-- ===================== -->
+      <section id="about" class="py-16 sm:py-20 lg:py-24 bg-slate-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-[minmax(0,_1.2fr)_minmax(0,_1fr)] gap-10 lg:gap-16 items-start">
+            <!-- العمود الأول: النصوص الرئيسية عنك -->
+            <div class="space-y-6">
+              <div class="inline-flex items-center gap-2 rounded-full bg-slate-900/80 border border-slate-800 px-3 py-1 text-xs text-slate-300 mb-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>من أنا؟</span>
+              </div>
+
+              <!-- عنوان القسم (تقدر تعدّل الجملة بما يناسب أسلوبك) -->
+              <h2 class="text-2xl sm:text-3xl font-bold text-slate-50">مصمم جرافيك مهتم بالتفاصيل وتأثير التصميم على العين.</h2>
+
+              <!-- فقرات النبذة - عدّل النص كما تحب -->
+              <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                أنا مهند عبدالعال، جرافيك ديزاينر من أسيوط – مصر، أمتلك خبرة أكثر من 3 سنوات في تصميم بوستات السوشيال ميديا والإعلانات. أركز في شغلي على وضوح الرسالة، وجذب الانتباه، مع الحفاظ على هوية البراند.
+              </p>
+              <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                عملت كفريلانس على عشرات المشاريع لعملاء في مجالات مختلفة، وقدرت أقدّم لهم تصاميم تساعدهم يوصلوا رسالتهم ويظهروا بشكل احترافي على السوشيال ميديا، بالإضافة لخبرة في تطوير مواقع باستخدام ووردبريس والواجهات الأمامية والخلفية.
+              </p>
+
+              <!-- معلومات سريعة: المدينة، نمط العمل، الخبرة -->
+              <div class="grid sm:grid-cols-3 gap-4 text-xs sm:text-sm">
+                <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4 space-y-1">
+                  <p class="text-slate-400">المدينة</p>
+                  <p class="text-slate-50 font-semibold">أسيوط، مصر</p>
+                </div>
+                <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4 space-y-1">
+                  <p class="text-slate-400">نمط العمل</p>
+                  <p class="text-slate-50 font-semibold">فريلانس · عمل عن بُعد</p>
+                </div>
+                <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4 space-y-1">
+                  <p class="text-slate-400">الخبرة</p>
+                  <p class="text-slate-50 font-semibold">+20 مشروع تصميم</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- العمود الثاني: ماذا تقدّم وأسلوبك في العمل -->
+            <div class="space-y-5">
+              <!-- قائمة بالخدمات التي تقدّمها -->
+              <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-5 sm:p-6">
+                <h3 class="text-sm font-semibold text-slate-100 mb-3">ما الذي أقدّمه لك؟</h3>
+                <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                  <li class="flex gap-2">
+                    <span class="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                    <span>تصميم بوستات سوشيال ميديا احترافية ومتناسقة مع هوية البراند.</span>
+                  </li>
+                  <li class="flex gap-2">
+                    <span class="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                    <span>تصميم إعلانات ممولة وبنرات تجذب الانتباه وتدعم هدف الحملة.</span>
+                  </li>
+                  <li class="flex gap-2">
+                    <span class="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                    <span>تصميمات جرافيكية متنوعة (كفرات صفحات، بوسترات، مطبوعات خفيفة).</span>
+                  </li>
+                  <li class="flex gap-2">
+                    <span class="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                    <span>تطوير مواقع باستخدام ووردبريس، مع أساسيات الفرونت إند والباك إند.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- تعريف بأسلوب عملك -->
+              <div class="rounded-2xl border border-amber-500/30 bg-gradient-to-l from-amber-500/10 via-slate-900 to-slate-950 p-5 sm:p-6 space-y-3">
+                <h3 class="text-sm font-semibold text-amber-100">أسلوبي في الشغل</h3>
+                <p class="text-xs sm:text-sm text-amber-50/90 leading-relaxed">
+                  بحب أهتم بالتفاصيل الصغيرة في التصميم، وأسمع من العميل كويس قبل ما أبدأ، عشان أطلع شغل مناسب لهدفه فعلاً. الالتزام بالمواعيد والتواصل الواضح بالنسبة لي جزء أساسي من أي مشروع ناجح.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- قسم المهارات والأدوات -->
+      <!-- ===================== -->
+      <section id="skills" class="py-16 sm:py-20 lg:py-24 bg-slate-950/95 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- عنوان القسم ووصف قصير -->
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-slate-50 mb-2">المهارات والأدوات</h2>
+              <p class="text-sm text-slate-300 max-w-xl">
+                مزيج من مهارات التصميم الجرافيكي وتطوير المواقع، أستخدمها لتقديم حلول متكاملة للبراندات والحملات.
+              </p>
+            </div>
+            <div class="text-xs text-slate-400 flex flex-wrap gap-2">
+              <span class="px-2 py-1 rounded-full border border-emerald-400/50 text-emerald-200 bg-emerald-500/10">أكثر من 3 سنوات خبرة</span>
+              <span class="px-2 py-1 rounded-full border border-cyan-400/50 text-cyan-200 bg-cyan-500/10">+20 مشروع</span>
+            </div>
+          </div>
+
+          <!-- كروت المهارات (تقدر تضيف/تحذف مهارات حسب احتياجك) -->
+          <div class="grid md:grid-cols-3 gap-6 lg:gap-7">
+            <!-- كارت: تصميم الجرافيك -->
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 sm:p-6 flex flex-col gap-4">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="text-sm font-semibold text-slate-100">تصميم الجرافيك</h3>
+                <span class="text-[11px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-400/50">الأساسي</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                تصميم بوستات سوشيال ميديا، إعلانات، بنرات، وعناصر بصرية جذابة تناسب مختلف المنصات.
+              </p>
+              <div class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs">
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">جرافيك ديزاين</span>
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">تصميم سوشيال ميديا</span>
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">تصميم إعلانات</span>
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">بنرات و كوفرات</span>
+              </div>
+            </div>
+
+            <!-- كارت: برامج التصميم -->
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 sm:p-6 flex flex-col gap-4">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="text-sm font-semibold text-slate-100">برامج التصميم</h3>
+                <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-400/50">أدواتي اليومية</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                استخدام احترافي لبرامج أدوبي في تصميم الأعمال التسويقية واليومية على السوشيال ميديا.
+              </p>
+              <div class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs">
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Adobe Photoshop</span>
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Adobe Illustrator</span>
+              </div>
+            </div>
+
+            <!-- كارت: تطوير المواقع -->
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 sm:p-6 flex flex-col gap-4">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="text-sm font-semibold text-slate-100">تطوير المواقع</h3>
+                <span class="text-[11px] px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-200 border border-violet-400/50">إضافة قوية</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                تطوير مواقع باستخدام ووردبريس مع معرفة بأساسيات الفرونت إند والباك إند لتقديم حلول متكاملة.
+              </p>
+              <div class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs">
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">WordPress</span>
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Frontend Basics</span>
+                <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Backend Basics</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- قسم الأعمال / المشاريع -->
+      <!-- ===================== -->
+      <section id="projects" class="py-16 sm:py-20 lg:py-24 bg-slate-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- رأس القسم: العنوان + فلاتر التصنيفات -->
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-slate-50 mb-2">بعض الأعمال</h2>
+              <p class="text-sm text-slate-300 max-w-xl">
+يمكنك رؤية جميع أعمالي و المشاريع التي عملت عليها سابقًا هنا
+              </p>
+            </div>
+
+            <!--
+              أزرار فلترة المشاريع
+              - data-filter="social" لعرض المشاريع من نوع سوشيال فقط مثلًا
+            -->
+            <div class="flex flex-wrap gap-2 text-xs">
+              <button
+                type="button"
+                data-filter="all"
+                class="px-3 py-1.5 rounded-full border border-cyan-500 bg-cyan-500/15 text-cyan-200"
+              >
+                الكل
+              </button>
+              <button
+                type="button"
+                data-filter="social"
+                class="px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-cyan-400 hover:text-cyan-200"
+              >
+                سوشيال ميديا
+              </button>
+              <button
+                type="button"
+                data-filter="ads"
+                class="px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-cyan-400 hover:text-cyan-200"
+              >
+                إعلانات
+              </button>
+              <button
+                type="button"
+                data-filter="web"
+                class="px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-cyan-400 hover:text-cyan-200"
+              >
+                مواقع
+              </button>
+            </div>
+          </div>
+
+          <!--
+            كروت المشاريع
+            ملاحظة:
+            - data-category="social" أو "ads" أو "web" مهم للفلترة.
+            - خاصية data-image في كل كرت تحمل مسار صورة المعاينة التي تظهر في نافذة الـ Quick View.
+          -->
+          <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+            <!-- مشروع 1: مثال لحملة سوشيال ميديا -->
+            <!--
+              مشروع 1
+              - غيّر قيمة data-image لمسار صورة حقيقية للمشروع (مثلاً داخل مجلد images/)
+              - عدّل النصوص حسب تفاصيل مشروعك الحقيقي
+            -->
+            <article
+              data-category="social"
+              data-image="images/كامبين اسنان.png"
+              data-images="images/كامبين اسنان.png, images/2.png, images/3.png, images/4.png, images/5.png"
+              class="group rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden flex flex-col"
+            >
+              <!-- صورة/معاينة شكلية للمشروع (يمكنك لاحقًا استبدالها بصورة حقيقية داخل الخلفية أو تركها كما هي) -->
+              <div class="relative overflow-hidden">
+                <div class="h-44 sm:h-48 bg-gradient-to-l from-brand-600 via-cyan-500 to-sky-500 flex items-center justify-center">
+                  <!-- صورة حقيقية/معاينة للمشروع (تُضبط تلقائيًا من data-image في عنصر <article>) -->
+                  <img
+                    data-project-thumb
+                    src=""
+                    alt=""
+                    class="w-11/12 h-3/4 rounded-2xl object-cover border border-slate-900 shadow-2xl shadow-cyan-500/40"
+                  />
+                </div>
+              </div>
+
+              <!-- نصوص المشروع -->
+              <div class="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                  <!--
+                    عنوان المشروع
+                    - يُستخدم في كرت المشروع وفي النافذة المنبثقة (Quick View)
+                  -->
+                  <h3
+                    class="text-base sm:text-lg font-semibold text-slate-50 group-hover:text-cyan-300 transition-colors"
+                    data-project-title
+                  >
+كامبين لعيادة أسنان                  </h3>
+                  <!-- نوع المشروع (فئة) -->
+                  <span
+                    class="text-[11px] px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300"
+                    data-project-badge
+                  >
+                    سوشيال ميديا
+                  </span>
+                </div>
+                <!-- نبذة قصيرة عن المشروع -->
+                <p
+                  class="text-xs sm:text-sm text-slate-300 leading-relaxed"
+                  data-project-description
+                >
+                  مجموعة بوستات فيس وإنستجرام ستوري للترويج لعيادة أسنان مع توحيد الألوان وتناسق الهوية البصرية.
+                </p>
+                <!-- التقنيات/الكلمات المفتاحية الخاصة بالمشروع -->
+                <div
+                  class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs text-slate-300"
+                  data-project-tags
+                >
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Photoshop</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Social Media Design</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-3">
+                    <!--
+                      زر فتح نافذة عرض سريعة للمشروع (Quick View)
+                      - لا تحتاج لتعديل في href، فقط عدّل نصوص الكرت وقيمة data-image
+                    -->
+                    <a
+                      href="#"
+                      data-project-link
+                      class="text-cyan-300 hover:text-cyan-200"
+                    >
+                      عرض تفاصيل المشروع
+                    </a>
+                  </div>
+                  <!-- سنة تنفيذ المشروع -->
+                  <span class="text-slate-400" data-project-year>2025</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- مشروع 2: تصميم إعلانات ممولة -->
+            <!--
+              مشروع 2
+              - غيّر قيمة data-image لمسار صورة حقيقية للمشروع
+            -->
+            <article
+              data-category="social"
+              data-image="images/عيون.png"
+              data-images="images/عيون.png, images/e1.png, images/e2.png, images/e3.png, images/e4.png"
+              class="group rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden flex flex-col"
+            >
+              <div class="relative overflow-hidden">
+                <div class="h-44 sm:h-48 bg-gradient-to-l from-violet-600 via-indigo-500 to-sky-500 flex items-center justify-center">
+                  <!-- صورة حقيقية/معاينة للمشروع (تُضبط تلقائيًا من data-image في عنصر <article>) -->
+                  <img
+                    data-project-thumb
+                    src=""
+                    alt=""
+                    class="w-11/12 h-3/4 rounded-2xl object-cover border border-slate-900 shadow-2xl shadow-violet-500/40"
+                  />
+                </div>
+              </div>
+              <div class="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h3
+                    class="text-base sm:text-lg font-semibold text-slate-50 group-hover:text-cyan-300 transition-colors"
+                    data-project-title
+                  >
+                   كامبين لمركز عيون
+                  </h3>
+                  <span
+                    class="text-[11px] px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300"
+                    data-project-badge
+                  >
+                    سوشيال ميديا
+                  </span>
+                </div>
+                <p
+                  class="text-xs sm:text-sm text-slate-300 leading-relaxed"
+                  data-project-description
+                >
+                  مجموعة تصميمات لإعلانات ممولة على فيسبوك وإنستجرام لمركز عيون، تركّز على إبراز الصور الاساسيه لمشاكل العيون .
+                </p>
+                <div
+                  class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs text-slate-300"
+                  data-project-tags
+                >
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Photoshop</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Ads Design</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-3">
+                    <a
+                      href="#"
+                      data-project-link
+                      class="text-cyan-300 hover:text-cyan-200"
+                    >
+                      عرض تفاصيل المشروع
+                    </a>
+                  </div>
+                  <span class="text-slate-400" data-project-year>2025</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- مشروع 3: باكدج سوشيال لمتجر إلكتروني -->
+            <!--
+              مشروع 3
+              - غيّر قيمة data-image لمسار صورة حقيقية للمشروع
+            -->
+            <article
+              data-category="ads"
+              data-image="images/كامبين فووم.png"
+              data-images="images/كامبين فووم.png, images/v1.png, images/v2.png, images/v3.png"
+              class="group rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden flex flex-col"
+            >
+              <div class="relative overflow-hidden">
+                <div class="h-44 sm:h-48 bg-gradient-to-l from-emerald-600 via-teal-500 to-cyan-500 flex items-center justify-center">
+                  <!-- صورة حقيقية/معاينة للمشروع (تُضبط تلقائيًا من data-image في عنصر <article>) -->
+                  <img
+                    data-project-thumb
+                    src=""
+                    alt=""
+                    class="w-11/12 h-3/4 rounded-2xl object-cover border border-slate-900 shadow-2xl shadow-emerald-500/40"
+                  />
+                </div>
+              </div>
+              <div class="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h3
+                    class="text-base sm:text-lg font-semibold text-slate-50 group-hover:text-cyan-300 transition-colors"
+                    data-project-title
+                  >
+                    باكدج بوستات لمتجر إلكتروني
+                  </h3>
+                  <span
+                    class="text-[11px] px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300"
+                    data-project-badge
+                  >
+إعلانات
+                  </span>
+                </div>
+                <p
+                  class="text-xs sm:text-sm text-slate-300 leading-relaxed"
+                  data-project-description
+                >
+               تصميم باكدج كاملة من إعلانات لكافيه فووم.
+                </p>
+                <div
+                  class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs text-slate-300"
+                  data-project-tags
+                >
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Photoshop</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Branding</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Ads Design</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-3">
+                    <a
+                      href="#"
+                      data-project-link
+                      class="text-cyan-300 hover:text-cyan-200"
+                    >
+                      عرض تفاصيل المشروع
+                    </a>
+                  </div>
+                  <span class="text-slate-400" data-project-year>2025</span>
+                </div>
+              </div>
+            </article>
+
+
+            
+            <!-- مشروع4: دعوة رسميه لحضور ايفنت -->
+            <!--
+              مشروع 4
+              - غيّر قيمة data-image لمسار صورة حقيقية للمشروع
+            -->
+            <article
+              data-category="social"
+              data-image="images/دعوة الجامعة.png"
+              class="group rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden flex flex-col"
+            >
+              <div class="relative overflow-hidden">
+                <div class="h-44 sm:h-48 bg-gradient-to-l from-emerald-600 via-teal-500 to-cyan-500 flex items-center justify-center">
+                  <!-- صورة حقيقية/معاينة للمشروع (تُضبط تلقائيًا من data-image في عنصر <article>) -->
+                  <img
+                    data-project-thumb
+                    src=""
+                    alt=""
+                    class="w-11/12 h-3/4 rounded-2xl object-cover border border-slate-900 shadow-2xl shadow-emerald-500/40"
+                  />
+                </div>
+              </div>
+              <div class="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h3
+                    class="text-base sm:text-lg font-semibold text-slate-50 group-hover:text-cyan-300 transition-colors"
+                    data-project-title
+                  >
+                   دعوة رسمية لجامعة اللوتس
+                  </h3>
+                  <span
+                    class="text-[11px] px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300"
+                    data-project-badge
+                  >
+سوشيال ميديا
+                  </span>
+                </div>
+                <p
+                  class="text-xs sm:text-sm text-slate-300 leading-relaxed"
+                  data-project-description
+                >
+دعوة رسمية من جامعة اللوتس لحضور ايفنت خاص بالجامعة                </p>
+                <div
+                  class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs text-slate-300"
+                  data-project-tags
+                >
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Photoshop</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Branding</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">social media design</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-3">
+                    <a
+                      href="#"
+                      data-project-link
+                      class="text-cyan-300 hover:text-cyan-200"
+                    >
+                      عرض تفاصيل المشروع
+                    </a>
+                  </div>
+                  <span class="text-slate-400" data-project-year>2025</span>
+                </div>
+              </div>
+            </article>
+
+
+            
+            <!-- مشروع 5: عيد اضحى  -->
+            <!--
+            مشروع 5
+              - غيّر قيمة data-image لمسار صورة حقيقية للمشروع
+            -->
+            <article
+              data-category="social"
+              data-image="images/عيد.png"
+              class="group rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden flex flex-col"
+            >
+              <div class="relative overflow-hidden">
+                <div class="h-44 sm:h-48 bg-gradient-to-l from-emerald-600 via-teal-500 to-cyan-500 flex items-center justify-center">
+                  <!-- صورة حقيقية/معاينة للمشروع (تُضبط تلقائيًا من data-image في عنصر <article>) -->
+                  <img
+                    data-project-thumb
+                    src=""
+                    alt=""
+                    class="w-11/12 h-3/4 rounded-2xl object-cover border border-slate-900 shadow-2xl shadow-emerald-500/40"
+                  />
+                </div>
+              </div>
+              <div class="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h3
+                    class="text-base sm:text-lg font-semibold text-slate-50 group-hover:text-cyan-300 transition-colors"
+                    data-project-title
+                  >
+ تهنئة عيد الاضحى                   </h3>
+                  <span
+                    class="text-[11px] px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300"
+                    data-project-badge
+                  >
+سوشيال ميديا
+                  </span>
+                </div>
+                <p
+                  class="text-xs sm:text-sm text-slate-300 leading-relaxed"
+                  data-project-description
+                >
+بوست تهنئة بحلول عيد الاضحى المبارك لجمعي EADS                </p>
+                <div
+                  class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs text-slate-300"
+                  data-project-tags
+                >
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Photoshop</span>
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Branding</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-3">
+                    <a
+                      href="#"
+                      data-project-link
+                      class="text-cyan-300 hover:text-cyan-200"
+                    >
+                      عرض تفاصيل المشروع
+                    </a>
+                  </div>
+                  <span class="text-slate-400" data-project-year>2025</span>
+                </div>
+              </div>
+            </article>
+
+
+            
+            <!-- مشروع6: تصميم معلومة طبية -->
+            <!--
+            6
+              - غيّر قيمة data-image لمسار صورة حقيقية للمشروع
+            -->
+            <article
+              data-category="social"
+              data-image="images/يوم4.png"
+              class="group rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden flex flex-col"
+            >
+              <div class="relative overflow-hidden">
+                <div class="h-44 sm:h-48 bg-gradient-to-l from-violet-600 via-indigo-500 to-sky-500 flex items-center justify-center">
+                  <!-- صورة حقيقية/معاينة للمشروع (تُضبط تلقائيًا من data-image في عنصر <article>) -->
+                  <img
+                    data-project-thumb
+                    src=""
+                    alt=""
+                    class="w-11/12 h-3/4 rounded-2xl object-cover border border-slate-900 shadow-2xl shadow-violet-500/40"
+                  />
+                </div>
+              </div>
+              <div class="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h3
+                    class="text-base sm:text-lg font-semibold text-slate-50 group-hover:text-cyan-300 transition-colors"
+                    data-project-title
+                  >
+معلومة طبية                  </h3>
+                  <span
+                    class="text-[11px] px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300"
+                    data-project-badge
+                  >
+                    سوشيال ميديا
+                  </span>
+                </div>
+                <p
+                  class="text-xs sm:text-sm text-slate-300 leading-relaxed"
+                  data-project-description
+                >
+تصميم معلومة طبية لجمعية EADS                </p>
+                <div
+                  class="flex flex-wrap gap-1.5 text-[11px] sm:text-xs text-slate-300"
+                  data-project-tags
+                >
+                  <span class="px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700">Photoshop</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-3">
+                    <a
+                      href="#"
+                      data-project-link
+                      class="text-cyan-300 hover:text-cyan-200"
+                    >
+                      عرض تفاصيل المشروع
+                    </a>
+                  </div>
+                  <span class="text-slate-400" data-project-year>2025</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- مشروع 4: موقع تعريفي (يمكن تنفيذه بووردبريس) -->
+            <!--
+              مشروع 4
+              - غيّر قيمة data-image لمسار صورة حقيقية للموقع أو صفحة الهبوط
+            -->
+            
+          </div>
+
+         
+
+        <!--
+          نافذة منبثقة (Quick View) لعرض تفاصيل سريعة عن أي مشروع
+          - يتم تعبئتها ديناميكيًا باستخدام JavaScript عند الضغط على "عرض تفاصيل المشروع" في أي كرت
+        -->
+        <div
+          id="projectModal"
+          class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4 py-8"
+          aria-hidden="true"
+        >
+          <!-- صندوق المحتوى الرئيسي للنافذة -->
+          <div
+            class="relative w-full max-w-3xl mx-auto rounded-2xl border border-slate-800 bg-slate-950/95 shadow-2xl overflow-hidden"
+          >
+            <!-- رأس النافذة: العنوان + الميتا + زر الإغلاق -->
+            <div class="flex items-start justify-between gap-3 border-b border-slate-800 px-5 py-4 sm:px-6">
+              <div class="space-y-1">
+                <!-- عنوان المشروع داخل النافذة (يتم تغييره بالـ JS) -->
+                <h3 id="projectModalTitle" class="text-base sm:text-lg font-semibold text-slate-50"></h3>
+                <!-- سطر يحتوي نوع المشروع والسنة -->
+                <p id="projectModalMeta" class="text-xs text-slate-400"></p>
+              </div>
+              <!-- زر إغلاق النافذة -->
+              <button
+                id="projectModalClose"
+                type="button"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-slate-700 bg-slate-900/80 text-slate-300 hover:text-cyan-200 hover:border-cyan-400 hover:bg-slate-900 transition-colors"
+                aria-label="إغلاق"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  class="w-4 h-4"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- محتوى النافذة: صورة + وصف + تقنيات -->
+            <div class="px-5 sm:px-6 pb-5 sm:pb-6 space-y-4">
+              <!-- منطقة صورة المعاينة داخل نافذة المشروع
+                   - هنا نخلي مساحة الصورة "على قد" حجم الصورة نفسها قدر الإمكان
+                   - بدون تمديد إجباري ولا قص من الأطراف
+                   - مهم: الصورة لن تخرج خارج الشاشة لأننا نستخدم max-width و max-height -->
+              <div class="w-full flex flex-col items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-3 sm:px-4 sm:py-4">
+                <!--
+                  منطقة عرض الصور داخل نافذة الـ Quick View
+                  - هنا نعرض "سلايدر / كاروسيل" بسيط لصور المشروع
+                  - الصور يتم قراءتها من خاصية data-images في كرت المشروع (إن وجدت)
+                  - لو لم توجد data-images نستخدم صورة واحدة من data-image
+                -->
+                <div class="relative w-full flex items-center justify-center">
+                  <!-- الصورة التي يتم تبديلها داخل الكاروسيل -->
+                  <img
+                    id="projectModalImage"
+                    src=""
+                    alt=""
+                    class="max-w-full max-h-[65vh] object-contain rounded-xl hidden"
+                  />
+                  <!-- زر السابق في الكاروسيل -->
+                  <button
+                    id="projectModalPrev"
+                    type="button"
+                    class="hidden absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 border border-slate-700 text-slate-200 hover:bg-slate-800 hover:border-cyan-400 hover:text-cyan-200 transition-colors"
+                    aria-label="الصورة السابقة"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
+                  </button>
+                  <!-- زر التالي في الكاروسيل -->
+                  <button
+                    id="projectModalNext"
+                    type="button"
+                    class="hidden absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 border border-slate-700 text-slate-200 hover:bg-slate-800 hover:border-cyan-400 hover:text-cyan-200 transition-colors"
+                    aria-label="الصورة التالية"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+                  </button>
+                </div>
+                <!-- عدّاد يوضح رقم الصورة الحالية من إجمالي الصور -->
+                <p
+                  id="projectModalCounter"
+                  class="hidden mt-1 text-[11px] text-slate-400"
+                ></p>
+                <!-- نص يظهر إذا لم يتم تحديد صورة للمشروع -->
+                <p
+                  id="projectModalNoImageText"
+                  class="text-xs text-slate-500 px-4 text-center"
+                >
+                  لم يتم إضافة صورة لهذا المشروع بعد. يمكنك ربط صورة من خلال خاصية
+                  <span class="text-cyan-300">data-image</span>
+                  أو إضافة أكثر من صورة من خلال <span class="text-cyan-300">data-images</span> في كرت المشروع.
+                </p>
+              </div>
+
+              <!-- نبذة عن المشروع -->
+              <p id="projectModalDescription" class="text-sm text-slate-300 leading-relaxed"></p>
+
+              <!-- قائمة مختصرة بالتقنيات / الكلمات المفتاحية -->
+              <p id="projectModalTags" class="text-[11px] text-slate-400"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- قسم التواصل (معلومات + نموذج) -->
+      <!-- ===================== -->
+      <section id="contact" class="py-16 sm:py-20 lg:py-24 bg-slate-950/95 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-[minmax(0,_1.1fr)_minmax(0,_1fr)] gap-10 lg:gap-14 items-start">
+            <!-- العمود الأول: نصوص معلومات التواصل -->
+            <div class="space-y-6">
+              <div class="inline-flex items-center gap-2 rounded-full bg-slate-900/80 border border-slate-800 px-3 py-1 text-xs text-slate-300 mb-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>جاهز نشتغل على مشروعك القادم</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-slate-50 mb-2">تواصل معي</h2>
+              <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                لو عندك براند، صفحة سوشيال ميديا، أو مشروع حابب تطلّع له تصاميم احترافية، ابعتلي تفاصيلك ونتفق مع بعض على أنسب شكل للتعاون.
+              </p>
+
+              <!-- معلومات الاتصال المباشرة -->
+              <div class="space-y-3 text-sm text-slate-200">
+                <!-- البريد الإلكتروني -->
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      class="w-4 h-4 text-cyan-300"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21.75 6.75v10.5A2.25 2.25 0 0 1 19.5 19.5h-15a2.25 2.25 0 0 1-2.25-2.25V6.75M21.75 6.75A2.25 2.25 0 0 0 19.5 4.5h-15A2.25 2.25 0 0 0 2.25 6.75M21.75 6.75v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.5a2.25 2.25 0 0 1-2.32 0l-7.5-4.5a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">البريد الإلكتروني</p>
+                    <!-- غيّر الإيميل هنا لو حبيت -->
+                    <a href="mailto:mohanedabdelaal91@gmail.com" class="text-sm text-cyan-300 hover:text-cyan-200">
+                      mohanedabdelaal91@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <!-- رقم الهاتف / واتساب -->
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      class="w-4 h-4 text-cyan-300"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 6.75c0 8.56 6.94 15.5 15.5 15.5h.26a2.25 2.25 0 0 0 2.24-2.02l.38-3.02a1.5 1.5 0 0 0-1.02-1.6l-3.01-1.01a1.5 1.5 0 0 0-1.67.54l-.89 1.19a.75.75 0 0 1-1.02.18 12.1 12.1 0 0 1-4.55-4.55.75.75 0 0 1 .18-1.02l1.19-.89a1.5 1.5 0 0 0 .54-1.67L9.3 4.35A1.5 1.5 0 0 0 7.7 3.33L4.68 3a2.25 2.25 0 0 0-2.43 2.25z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">واتساب / هاتف</p>
+                    <!-- غيّر رقم الهاتف هنا -->
+                    <a href="tel:+201555873803" class="text-sm text-cyan-300 hover:text-cyan-200">+(20)155-587-3803</a>
+                  </div>
+                </div>
+
+                <!-- روابط السوشيال ميديا (حالياً روابط فارغة # للتعديل لاحقًا) -->
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      class="w-4 h-4 text-cyan-300"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 2.25c-4.97 0-9 3.87-9 8.64 0 1.9.63 3.66 1.81 5.13L3 21.75l5.98-1.96a10.27 10.27 0 0 0 3.02.45c4.97 0 9-3.87 9-8.64 0-4.77-4.03-8.64-9-8.64z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">مواقع التواصل</p>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                      <!-- استبدل # بروابط حساباتك الحقيقية -->
+                      <a href="https://www.facebook.com/profile.php?id=100050033051047&ref=_ig_profile_ac" class="text-cyan-300 hover:text-cyan-200">Facebook</a>
+                      <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+                                            <a href="https://www.instagram.com/mohaned_abdelaal/" class="text-cyan-300 hover:text-cyan-200">instagram</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- العمود الثاني: نموذج التواصل (تجريبي) -->
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 sm:p-6 lg:p-7">
+              <h3 class="text-sm font-semibold text-slate-100 mb-4">أرسل تفاصيل مشروعك</h3>
+
+              <!--
+                نموذج التواصل
+                - حاليًا لا يرسل بيانات حقيقية، فقط يعرض رسالة نجاح وهمية.
+                - لاحقًا تقدر تربطه بخدمة بريد أو API حسب احتياجك.
+              -->
+              <form id="contactForm" class="space-y-4 text-sm">
+                <div>
+                  <label for="name" class="block text-xs text-slate-300 mb-1.5">الاسم الكامل</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                    placeholder="اكتب اسمك هنا"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block text-xs text-slate-300 mb-1.5">البريد الإلكتروني</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div>
+                  <label for="subject" class="block text-xs text-slate-300 mb-1.5">نوع المشروع</label>
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                    placeholder="مثال: تصميم بوستات سوشيال ميديا لمطعم"
+                  />
+                </div>
+                <div>
+                  <label for="message" class="block text-xs text-slate-300 mb-1.5">تفاصيل الرسالة</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    required
+                    class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400"
+                    placeholder="شارك تفاصيل البراند، نوع التصاميم المطلوبة، وعدد القطع تقريبًا."
+                  ></textarea>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                  <button
+                    type="submit"
+                    class="inline-flex items-center justify-center px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-l from-brand-500 to-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/30 hover:from-brand-400 hover:to-cyan-300 transition-colors min-w-[140px]"
+                  >
+                    إرسال الرسالة
+                  </button>
+                  <!-- تظهر فيها رسالة نجاح مؤقتة عند الإرسال -->
+                  <p id="contactStatus" class="text-xs text-emerald-300"></p>
+                </div>
+               
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== -->
+    <!-- زر العودة للأعلى -->
+    <!-- ===================== -->
+    <button
+      id="scrollTopBtn"
+      type="button"
+      class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-700 bg-slate-900/90 text-slate-200 shadow-lg shadow-slate-900/60 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-200"
+      aria-label="العودة للأعلى"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        class="w-4 h-4"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75 12 8.25l7.5 7.5" />
+      </svg>
+    </button>
+
+    <!-- ===================== -->
+    <!-- الفوتر (أسفل الصفحة) -->
+    <!-- ===================== -->
+    <footer class="border-t border-slate-900 bg-slate-950/95">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs text-slate-400">
+        <p>
+          © <span id="year"></span> مهند عبدالعال. جميع الحقوق محفوظة.
+        </p>
+        <p class="flex items-center gap-1">
+          <span class="hidden xs:inline">مصمم ومطوّر بكل</span>
+          <span class="text-cyan-300">اهتمام بالتفاصيل.</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===================== -->
+  <!-- كود JavaScript للتفاعلات -->
+  <!-- ===================== -->
+  <script>
+    // ------------------------------------------------------------------
+    // خريطة سريعة لملف الجافاسكربت في الأسفل:
+    // - القسم 1: نظام الثيم (داكن / فاتح): يتحكم في لون الموقع ويحفظ اختيار المستخدم في المتصفح.
+    // - القسم 2: قائمة الجوال (فتح/إغلاق): يتحكم في زر الهامبرجر وظهور المنيو في الموبايل.
+    // - القسم 3: تمييز القسم الحالي في القائمة (Scrollspy): يغيّر لون رابط المنيو حسب مكانك في الصفحة.
+    // - القسم 4: زر العودة للأعلى: يُظهر زر سهم يرجّعك لأعلى الصفحة عند النزول لأسفل.
+    // - القسم 5: فلترة المشاريع حسب النوع: يفلتر كروت المشاريع (الكل / سوشيال / إعلانات / مواقع).
+    // - القسم 6: نافذة عرض سريعة للمشاريع (Quick View Modal): تفتح بوب أب فيها صورة ونبذة عن المشروع.
+    // - القسم 7: نموذج التواصل (إرسال تجريبي): يعرض رسالة نجاح وهمية عند الإرسال.
+    // - القسم 8: ضبط السنة الحالية في الفوتر: يكتب سنة اليوم تلقائيًا في أسفل الصفحة.
+    // ملاحظة: لو حبيت تعدّل أي جزء، روح للقسم المقابل وعدّل النصوص أو الأرقام أو السلوك كما يناسبك.
+    // ------------------------------------------------------------------
+
+    // =========================
+    // 1) نظام الثيم (داكن / فاتح)
+    // =========================
+
+    const docEl = document.documentElement; // عنصر <html>
+    const themeToggleBtn = document.getElementById("themeToggle"); // زر التبديل
+    const themeIcon = document.getElementById("themeIcon"); // الأيقونة داخل الزر
+
+    // تحديث شكل الأيقونة حسب الثيم الحالي
+    function updateThemeIcon(isDark) {
+      if (!themeIcon) return;
+      if (isDark) {
+        // أيقونة قمر (ثيم داكن)
+        themeIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 0 1 11.21 3 6.75 6.75 0 1 0 21 12.79z" />
+          </svg>
+        `;
+      } else {
+        // أيقونة شمس (ثيم فاتح)
+        themeIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5">
+            <circle cx="12" cy="12" r="4" />
+            <path stroke-linecap="round" d="M12 3v2.5M12 18.5V21M4.22 4.22 5.99 5.99M18.01 18.01l1.77 1.77M3 12h2.5M18.5 12H21M4.22 19.78 5.99 18.01M18.01 5.99l1.77-1.77" />
+          </svg>
+        `;
+      }
+    }
+
+    // تطبيق الثيم المخزّن في localStorage أو الاعتماد على تفضيل النظام
+    function applyStoredTheme() {
+      const stored = localStorage.getItem("theme"); // قيمة مخزنة: "dark" أو "light"
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const useDark = stored === "dark" || (!stored && prefersDark);
+
+      if (useDark) {
+        docEl.classList.add("dark");
+      } else {
+        docEl.classList.remove("dark");
+      }
+
+      updateThemeIcon(useDark);
+    }
+
+    // استدعاء الدالة عند تحميل الصفحة
+    applyStoredTheme();
+
+    // عند الضغط على زر تبديل الثيم
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener("click", () => {
+        const isDark = docEl.classList.toggle("dark"); // يضيف أو يحذف كلاس .dark
+        localStorage.setItem("theme", isDark ? "dark" : "light"); // تخزين الاختيار
+        updateThemeIcon(isDark);
+      });
+    }
+
+    // =========================
+    // 2) قائمة الجوال (فتح/إغلاق)
+    // =========================
+
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileMenuIcon = document.getElementById("mobileMenuIcon");
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener("click", () => {
+        const isOpen = !mobileMenu.classList.contains("hidden"); // هل القائمة مفتوحة الآن؟
+
+        if (isOpen) {
+          // إغلاق القائمة
+          mobileMenu.classList.add("hidden");
+          if (mobileMenuIcon) {
+            mobileMenuIcon.setAttribute("d", "");
+            mobileMenuIcon.innerHTML = '<path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10" />'; // أيقونة 3 خطوط
+          }
+        } else {
+          // فتح القائمة
+          mobileMenu.classList.remove("hidden");
+          if (mobileMenuIcon) {
+            mobileMenuIcon.setAttribute("d", "");
+            mobileMenuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />'; // أيقونة X
+          }
+        }
+      });
+
+      // إغلاق قائمة الجوال تلقائيًا عند الضغط على رابط من روابطها
+      mobileMenu.querySelectorAll("a[href^='#']").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          if (mobileMenuIcon) {
+            mobileMenuIcon.innerHTML = '<path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10" />';
+          }
+        });
+      });
+    }
+
+    // =========================
+    // 3) تمييز القسم الحالي في القائمة (Scrollspy)
+    // =========================
+
+    const sections = document.querySelectorAll("section[id]"); // كل الأقسام اللي لها id
+    const navLinks = document.querySelectorAll("[data-nav-link]"); // روابط القائمة اللي نضيف لها التمييز
+
+    function onScrollSpy() {
+      const scrollY = window.pageYOffset;
+      let currentId = "";
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offsetTop = scrollY + rect.top - 140; // تعويض ارتفاع الهيدر
+        if (scrollY >= offsetTop) {
+          currentId = section.getAttribute("id");
+        }
+      });
+
+      // إزالة التمييز عن كل الروابط ثم إضافته للرابط الموافق للقسم الحالي
+      navLinks.forEach((link) => {
+        link.classList.remove("text-cyan-300", "font-semibold");
+        const href = link.getAttribute("href");
+        if (href === `#${currentId}`) {
+          link.classList.add("text-cyan-300", "font-semibold");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", onScrollSpy);
+    onScrollSpy(); // استدعاء مرة عند تحميل الصفحة
+
+    // =========================
+    // 4) زر العودة للأعلى
+    // =========================
+
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    function onScrollTopVisibility() {
+      if (!scrollTopBtn) return;
+
+      if (window.pageYOffset > 500) {
+        // إظهار الزر بعد النزول لمسافة 500 بكسل
+        scrollTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-3");
+      } else {
+        // إخفاء الزر قرب أعلى الصفحة
+        scrollTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-3");
+      }
+    }
+
+    window.addEventListener("scroll", onScrollTopVisibility);
+    onScrollTopVisibility();
+
+    if (scrollTopBtn) {
+      scrollTopBtn.addEventListener("click", () => {
+        // تمرير ناعم للأعلى
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    // =========================
+    // 5) فلترة المشاريع حسب النوع
+    // =========================
+
+    const filterButtons = document.querySelectorAll("[data-filter]"); // الأزرار أعلى قسم المشاريع
+    const projectCards = document.querySelectorAll("[data-category]"); // الكروت نفسها
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-filter"); // النوع المطلوب عرضه (all / social / ads / web)
+
+        // إعادة ضبط مظهر جميع الأزرار
+        filterButtons.forEach((b) => {
+          b.classList.remove("border-cyan-500", "bg-cyan-500/15", "text-cyan-200");
+          b.classList.add("border-slate-700", "bg-slate-900/80", "text-slate-200");
+        });
+
+        // تمييز الزر الحالي
+        btn.classList.add("border-cyan-500", "bg-cyan-500/15", "text-cyan-200");
+        btn.classList.remove("border-slate-700", "bg-slate-900/80", "text-slate-200");
+
+        // إظهار/إخفاء الكروت حسب الفئة
+        projectCards.forEach((card) => {
+          const category = card.getAttribute("data-category");
+          if (filter === "all" || filter === category) {
+            card.classList.remove("hidden", "opacity-0", "translate-y-2");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    // =========================
+    // 6) نافذة عرض سريعة للمشاريع (Quick View Modal + كاروسيل صور)
+    // =========================
+
+    // أولاً: تعيين صور المعاينة (الثمبنيل) داخل كروت المشاريع من خاصية data-image أو data-thumb
+    // - data-image = صورة الكرت الأساسية (اللي برّه فوق عنوان المشروع) + تُستخدم كصورة افتراضية في الـ Quick View
+    // - data-thumb (اختياري) = لو حابب تخلي صورة الكرت مختلفة عن صور الـ Quick View بالكامل
+    const projectCardsWithThumbs = document.querySelectorAll("[data-category]");
+    projectCardsWithThumbs.forEach((card) => {
+      const imgEl = card.querySelector("[data-project-thumb]");
+      const imgSrc = card.getAttribute("data-thumb") || card.getAttribute("data-image");
+      if (imgEl && imgSrc) {
+        const titleEl = card.querySelector("[data-project-title]");
+        imgEl.src = imgSrc;
+        imgEl.alt = titleEl ? titleEl.textContent.trim() : "";
+      }
+    });
+
+    // عناصر النافذة المنبثقة
+    const projectModal = document.getElementById("projectModal");
+    const projectModalTitle = document.getElementById("projectModalTitle");
+    const projectModalMeta = document.getElementById("projectModalMeta");
+    const projectModalImage = document.getElementById("projectModalImage");
+    const projectModalNoImageText = document.getElementById("projectModalNoImageText");
+    const projectModalDescription = document.getElementById("projectModalDescription");
+    const projectModalTags = document.getElementById("projectModalTags");
+    const projectModalClose = document.getElementById("projectModalClose");
+    const projectModalPrev = document.getElementById("projectModalPrev");
+    const projectModalNext = document.getElementById("projectModalNext");
+    const projectModalCounter = document.getElementById("projectModalCounter");
+
+    // متغيرات خاصة بكاروسيل الصور داخل الـ Quick View
+    let projectModalImages = []; // مصفوفة مسارات الصور
+    let projectModalCurrentIndex = 0; // رقم الصورة الحالية
+    let projectModalAltBase = ""; // أساس نص الـ alt (عادةً عنوان المشروع)
+
+    // دالة مساعدة لتحديث صورة الكاروسيل الحالية + العداد
+    function updateProjectModalImage() {
+      if (!projectModalImage || !projectModalImages.length) return;
+
+      projectModalImage.src = projectModalImages[projectModalCurrentIndex];
+      projectModalImage.alt = projectModalAltBase
+        ? `${projectModalAltBase} - صورة ${projectModalCurrentIndex + 1}`
+        : "";
+      projectModalImage.classList.remove("hidden");
+
+      if (projectModalCounter) {
+        projectModalCounter.textContent = `صورة ${projectModalCurrentIndex + 1} من ${projectModalImages.length}`;
+      }
+    }
+
+    // دالة لفتح النافذة وتعبئتها ببيانات المشروع
+    function openProjectModal(card) {
+      if (!projectModal) return;
+
+      // عنوان المشروع
+      const titleEl = card.querySelector("[data-project-title]");
+      // نوع/تصنيف المشروع (البادج الصغير)
+      const badgeEl = card.querySelector("[data-project-badge]");
+      // وصف قصير
+      const descEl = card.querySelector("[data-project-description]");
+      // قائمة التاجات/التقنيات
+      const tagsEl = card.querySelector("[data-project-tags]");
+      // سنة التنفيذ
+      const yearEl = card.querySelector("[data-project-year]");
+
+      // تعيين العنوان داخل النافذة
+      projectModalTitle.textContent = titleEl ? titleEl.textContent.trim() : "";
+      projectModalAltBase = projectModalTitle.textContent;
+
+      // تكوين سطر الميتا: النوع + السنة
+      const badgeText = badgeEl ? badgeEl.textContent.trim() : "";
+      const yearText = yearEl ? yearEl.textContent.trim() : "";
+      projectModalMeta.textContent = [badgeText, yearText].filter(Boolean).join(" • ");
+
+      // تعيين الوصف
+      projectModalDescription.textContent = descEl ? descEl.textContent.trim() : "";
+
+      // بناء نص التاجات (التقنيات) كسطر واحد مفصول بفواصل
+      if (tagsEl) {
+        const tagTexts = Array.from(tagsEl.querySelectorAll("span")).map((tag) =>
+          tag.textContent.trim()
+        );
+        projectModalTags.textContent = tagTexts.length
+          ? "التقنيات المستخدمة: " + tagTexts.join("، ")
+          : "";
+      } else {
+        projectModalTags.textContent = "";
+      }
+
+      // قراءة صور الـ Quick View:
+      // - لو الخاصية data-images موجودة → نقرأ منها أكثر من صورة (مفصولة بفاصلة ,)
+      // - لو غير موجودة → نستخدم صورة واحدة من data-image كافتراضي
+      const imagesAttr = card.getAttribute("data-images");
+      let images = [];
+
+      if (imagesAttr) {
+        images = imagesAttr
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+      }
+
+      if (!images.length) {
+        const fallback = card.getAttribute("data-image");
+        if (fallback) {
+          images = [fallback];
+        }
+      }
+
+      projectModalImages = images;
+      projectModalCurrentIndex = 0;
+
+      if (projectModalImages.length) {
+        // يوجد صور → نعرض الكاروسيل ونخفي نص "لا توجد صورة"
+        updateProjectModalImage();
+        projectModalNoImageText.classList.add("hidden");
+
+        projectModalImage.classList.remove("hidden");
+        if (projectModalPrev) projectModalPrev.classList.remove("hidden");
+        if (projectModalNext) projectModalNext.classList.remove("hidden");
+        if (projectModalCounter) projectModalCounter.classList.remove("hidden");
+      } else {
+        // لا توجد أي صورة → نخفي عناصر الصورة والكاروسيل ونظهر النص البديل
+        projectModalImage.src = "";
+        projectModalImage.alt = "";
+        projectModalImage.classList.add("hidden");
+        projectModalNoImageText.classList.remove("hidden");
+
+        if (projectModalPrev) projectModalPrev.classList.add("hidden");
+        if (projectModalNext) projectModalNext.classList.add("hidden");
+        if (projectModalCounter) projectModalCounter.classList.add("hidden");
+      }
+
+      // إظهار النافذة (إزالة hidden وتفعيل flex)
+      projectModal.classList.remove("hidden");
+      projectModal.classList.add("flex");
+    }
+
+    // دالة لإغلاق النافذة
+    function closeProjectModal() {
+      if (!projectModal) return;
+      projectModal.classList.add("hidden");
+      projectModal.classList.remove("flex");
+      // إعادة تعيين بيانات الكاروسيل
+      projectModalImages = [];
+      projectModalCurrentIndex = 0;
+    }
+
+    if (projectModal) {
+      // ربط جميع أزرار "عرض تفاصيل المشروع" بالنافذة
+      document.querySelectorAll("[data-project-link]").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault(); // منع التنقل للرابط
+          const card = link.closest("[data-category]"); // كرت المشروع الحالي
+          if (!card) return;
+          openProjectModal(card);
+        });
+      });
+
+      // زر إغلاق النافذة
+      if (projectModalClose) {
+        projectModalClose.addEventListener("click", () => {
+          closeProjectModal();
+        });
+      }
+
+      // أزرار الكاروسيل (السابق / التالي)
+      if (projectModalPrev) {
+        projectModalPrev.addEventListener("click", (e) => {
+          e.stopPropagation(); // عشان ما نقفلش المودال بالغلط
+          if (!projectModalImages.length) return;
+          projectModalCurrentIndex =
+            (projectModalCurrentIndex - 1 + projectModalImages.length) %
+            projectModalImages.length;
+          updateProjectModalImage();
+        });
+      }
+
+      if (projectModalNext) {
+        projectModalNext.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (!projectModalImages.length) return;
+          projectModalCurrentIndex =
+            (projectModalCurrentIndex + 1) % projectModalImages.length;
+          updateProjectModalImage();
+        });
+      }
+
+      // إغلاق النافذة عند الضغط على الخلفية الداكنة حول الصندوق
+      projectModal.addEventListener("click", (e) => {
+        if (e.target === projectModal) {
+          closeProjectModal();
+        }
+      });
+
+      // إغلاق النافذة عند الضغط على زر Escape في لوحة المفاتيح
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeProjectModal();
+        }
+      });
+    }
+
+    // =========================
+    // 7) نموذج التواصل (إرسال تجريبي)
+    // =========================
+
+    const contactForm = document.getElementById("contactForm");
+    const contactStatus = document.getElementById("contactStatus");
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault(); // منع الإرسال الحقيقي
+
+        if (contactStatus) {
+          contactStatus.textContent = "تم إرسال رسالتك (تجريبيًا). شكرًا لتواصلك!";
+        }
+
+        // إعادة تعيين الحقول
+        contactForm.reset();
+
+        // إخفاء رسالة النجاح بعد 5 ثوانٍ
+        setTimeout(() => {
+          if (contactStatus) contactStatus.textContent = "";
+        }, 5000);
+      });
+    }
+
+    // =========================
+    // 7) ضبط السنة الحالية في الفوتر تلقائيًا
+    // =========================
+
+    const yearSpan = document.getElementById("year");
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  </script>
+</body>
+</html>
